@@ -1,7 +1,12 @@
 import React, { memo, useState } from 'react';
 
 export const Todo = memo(props => {
-    const { todoItem, getEdittingId, edittingId, changeCheckedTodoItem, removeItem, onEdit, index } = props;
+    const {
+        todoItem, setEdittingId, edittingId,
+        changeCheckedTodoItem, removeItem, onEdit,
+        index
+    } = props;
+
     const [text, setText] = useState(todoItem.text);
     const isEditting = edittingId === todoItem.id;
 
@@ -17,7 +22,7 @@ export const Todo = memo(props => {
     const onKeyPress = (e) => {
         if (e.key === 'Enter') {
             editTodo()
-            getEdittingId()
+            setEdittingId()
         }
     }
     const onRemoveItem = (e) => {
@@ -35,7 +40,8 @@ export const Todo = memo(props => {
                             onChange={onChangeClicked}
                         />
                         <label
-                            onDoubleClick={e => getEdittingId(todoItem.id)}
+                            onDoubleClick={e => setEdittingId(todoItem.id)}
+                            onClick={onChangeClicked}
                         >
                             {todoItem.text}
                         </label>

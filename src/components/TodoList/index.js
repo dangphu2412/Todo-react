@@ -14,8 +14,12 @@ export const TodoList = memo(props => {
                         <Todo
                             key={todoItem.id}
                             index={index}
-                            {...{ todoItem }}
-                            {...props}
+                            {
+                            ...{
+                                todoItem,
+                                ...props,
+                            }
+                            }
                         />
                     )
                 }

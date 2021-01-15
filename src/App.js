@@ -1,70 +1,18 @@
 import './App.css';
-import { Footer } from './components/Footer';
-import { Header } from './components/Header';
-import { TodoList } from './components/TodoList';
-import { useState } from 'react';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import { history } from './common/utils/history';
+import { TodoPage, LoginPage } from './pages/public';
 
-function App() {
-  const [todo, setTodo] = useState(
-    [
-      {
-        id: 1,
-        text: 'Todo 1',
-        isCompleted: true
-      },
-      {
-        id: 2,
-        text: 'Todo 2',
-        isCompleted: false
-      },
-    ]
-  );
-
-  const [edittingId, setEdittingId] = useState('');
-
-  const addTodo = (todoList = {}) => {
-    setTodo([...todo, todoList])
-  }
-
-  const getEdittingId = (id = null) => {
-    setEdittingId(id);
-  }
-
-  const changeCheckedTodoItem = (id) => {
-    setTodo([...todo.map(item => {
-      return item.id === id ? {
-        ...item,
-        isCompleted: true
-      } : item;
-    })])
-  }
-
-  const removeItem = (id) => {
-    setTodo([...todo.filter(item => {
-      return item.id !== id;
-    })])
-  }
-
-  const onEdit = (todoState = {}, index = -1) => {
-    if (index > 0) {
-      todo.splice(index, 1, todoState);
-    }
-  }
-
+export const App = () => {
   return (
-    <div className="todoapp">
-      <Header addTodo={addTodo} />
-      <TodoList
-        todoList={todo}
-        getEdittingId={getEdittingId}
-        edittingId={edittingId}
-        changeCheckedTodoItem={changeCheckedTodoItem}
-        onEdit={onEdit}
-        removeItem={removeItem}
-      />
-      <Footer />
+    <div>
+      <Router history={history}>
+        <Switch>
+          <Route path='/todo' component={TodoPage}></Route>
+          <Route path='/login' component={LoginPage}></Route>
+          <Redirect from="*" to="/" />
+        </Switch>
+      </Router>
     </div>
   );
 }
-
-export default App;

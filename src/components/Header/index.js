@@ -1,18 +1,23 @@
 import React, { memo, useState } from 'react';
 
 export const Header = memo(props => {
-    const { addTodo } = props;
+    const { addTodo, listLength } = props;
 
     const [text, setText] = useState('');
     const onAddTodo = (e) => {
-        if (e.key === 'Enter' && text.trim()) {
+        setText(text.trim());
+        if (e.key === 'Enter') {
+            if (text === '') {
+                alert("You need to fill in before enter");
+                return;
+            }
             addTodo({
-                id: new Date().valueOf(),
+                id: listLength,
                 text,
                 isCompleted: false
             })
 
-            setText('')
+            setText('');
         }
     }
     return (
