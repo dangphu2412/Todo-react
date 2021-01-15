@@ -10,7 +10,14 @@ export const TodoList = memo(props => {
             <label htmlFor="toggle-all"></label>
             <ul className="todo-list">
                 {
-                    todoList.map(todoItem => <Todo key={`${todoItem.id}`} {...{ todoItem }} />)
+                    todoList.map((todoItem, index) =>
+                        <Todo
+                            key={todoItem.id}
+                            index={index}
+                            {...{ todoItem }}
+                            {...props}
+                        />
+                    )
                 }
             </ul>
         </section>

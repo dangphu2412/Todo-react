@@ -108,9 +108,9 @@ button {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.todo-list li .edit {
+/* .todo-list li .edit {
     display: none;
-}
+} */
 
 .new-todo, .edit {
     position: relative;

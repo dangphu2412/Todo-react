@@ -20,14 +20,48 @@ function App() {
     ]
   );
 
+  const [edittingId, setEdittingId] = useState('');
+
   const addTodo = (todoList = {}) => {
     setTodo([...todo, todoList])
+  }
+
+  const getEdittingId = (id = null) => {
+    setEdittingId(id);
+  }
+
+  const changeCheckedTodoItem = (id) => {
+    setTodo([...todo.map(item => {
+      return item.id === id ? {
+        ...item,
+        isCompleted: true
+      } : item;
+    })])
+  }
+
+  const removeItem = (id) => {
+    setTodo([...todo.filter(item => {
+      return item.id !== id;
+    })])
+  }
+
+  const onEdit = (todoState = {}, index = -1) => {
+    if (index > 0) {
+      todo.splice(index, 1, todoState);
+    }
   }
 
   return (
     <div className="todoapp">
       <Header addTodo={addTodo} />
-      <TodoList todoList={todo} />
+      <TodoList
+        todoList={todo}
+        getEdittingId={getEdittingId}
+        edittingId={edittingId}
+        changeCheckedTodoItem={changeCheckedTodoItem}
+        onEdit={onEdit}
+        removeItem={removeItem}
+      />
       <Footer />
     </div>
   );
